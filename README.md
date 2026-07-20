@@ -16,10 +16,11 @@ demonstrating emergent swarm behaviour through simple reactive agent rules.
 | Member 5 | `member-5-parameters-results` | Parameters, scenarios & results |
 
 ## Project Structure
+
 ant-colony-netlogo/
-├── ant-colony.nlogo # main model file
-├── results/ # scenario test results
-└── screenshots/ # interface screenshots per member
+├── ant-colony.nlogo       # main model file
+├── results/                # scenario test results
+└── screenshots/            # interface screenshots per member
 ## How to Run
 
 1. Open `ant-colony.nlogo` in NetLogo
