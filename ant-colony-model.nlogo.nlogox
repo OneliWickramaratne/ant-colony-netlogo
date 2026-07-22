@@ -45,7 +45,7 @@ end
 
 to setup-ants
 
-  create-ants 30 [
+  create-ants 100 [ ;; 30, 100
     set color red
     set size 1.5
     set carrying-food? false
@@ -54,10 +54,60 @@ to setup-ants
     set heading random 360
   ]
 
+end
+
+;; Movement Logic
+;; to random-search
+   ;; move with small random turns each tick and step forward
+  ;; rt random-float 40
+  ;; lt random-float 40
+  ;; fd 1
+;; end
+
+to random-search
+  ;; correlated random walk for a more realistic ant search behaviour
+  rt (random-float 30 - random-float 30)
+  
+  if abs xcor >= (max-pxcor - 1) or abs ycor >= (max-pycor - 1) [
+    facexy 0 0
+    rt (random-float 40 - 20)   ;; keep some randomness so it's not a robotic
+  ]
+
+  fd 1
+end
+
+to check-food
+  ;; if standing on a food patch and not already carrying food, pick it up
+  if food? and not carrying-food? [
+    set carrying-food? true
+    set food? false          ;; this food patch is used up
+    set pcolor green         ;; reset appearance now the food is gone
+    rt 180                   ;; turn around and move toward the nest
+    set color yellow
+  ]
+end
+
+to check-nest
+  ;; if standing on the nest while carrying food deliver it
+  if nest? and carrying-food? [
+    set carrying-food? false
+    rt 180     
+    set color red
+  ]
+end
+
+to go
+  ask ants [
+    random-search
+    check-food
+    check-nest
+  ]
+  tick
 end]]></code>
   <widgets>
-    <view x="368" wrappingAllowedX="true" y="10" frameRate="30.0" minPycor="-16" height="434" showTickCounter="true" patchSize="13.0" fontSize="10" wrappingAllowedY="true" width="434" tickCounterLabel="ticks" maxPycor="16" updateMode="0" maxPxcor="16" minPxcor="-16"></view>
-    <button x="445" y="80" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
+    <view x="790" wrappingAllowedX="true" y="5" frameRate="30.0" minPycor="-16" height="639" showTickCounter="true" patchSize="19.242424242424242" fontSize="10" wrappingAllowedY="true" width="639" tickCounterLabel="ticks" maxPycor="16" updateMode="0" maxPxcor="16" minPxcor="-16"></view>
+    <button x="565" y="150" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
+    <button x="565" y="200" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="55" display="Go">go</button>
   </widgets>
   <info>## WHAT IS IT?
 
