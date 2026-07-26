@@ -47,7 +47,7 @@ end
 
 to setup-ants
 
-  create-ants 100 [ ;; 30, 100
+  create-ants number-of-ants [
     set color red
     set size 1.5
     set carrying-food? false
@@ -59,23 +59,40 @@ to setup-ants
 end
 
 ;; Movement Logic
-;; to random-search
-   ;; move with small random turns each tick and step forward
-  ;; rt random-float 40
-  ;; lt random-float 40
-  ;; fd 1
-;; end
-
 to random-search
   ;; correlated random walk for a more realistic ant search behaviour
   rt (random-float 30 - random-float 30)
-  
+
   if abs xcor >= (max-pxcor - 1) or abs ycor >= (max-pycor - 1) [
     facexy 0 0
-    rt (random-float 40 - 20)   ;; keep some randomness so it's not a robotic
+    rt (random-float 40 - 20)   ;; keep some randomness so it's not robotic
   ]
 
   fd 1
+end
+
+to follow-pheromone
+  ;; Only follow pheromone when searching for food (not carrying)
+  if not carrying-food? [
+    let scent-ahead [pheromone] of patch-ahead 1
+    let scent-left  [pheromone] of patch-left-and-ahead 45 1
+    let scent-right [pheromone] of patch-right-and-ahead 45 1
+
+    ;; Only react if there is a meaningful trail nearby
+    if (scent-ahead + scent-left + scent-right) > 0.1 [
+      ;; Turn toward the strongest patch; noise keeps it probabilistic
+      ifelse scent-right > scent-ahead and scent-right > scent-left [
+        rt 45 + (random-float 30 - 15)
+      ] [
+        ifelse scent-left > scent-ahead and scent-left > scent-right [
+          lt 45 + (random-float 30 - 15)
+        ] [
+          ;; Ahead is best — small jitter to avoid lock-in
+          rt (random-float 20 - 10)
+        ]
+      ]
+    ]
+  ]
 end
 
 to check-food
@@ -90,10 +107,10 @@ to check-food
 end
 
 to check-nest
-  ;; if standing on the nest while carrying food deliver it
+  ;; if standing on the nest while carrying food, deliver it
   if nest? and carrying-food? [
     set carrying-food? false
-    rt 180     
+    rt 180
     set color red
   ]
 end
@@ -108,14 +125,19 @@ to evaporate
   ask patches [
     set pheromone pheromone * (1 - evaporation-rate)
     if not nest? and not food? [
-      set pcolor scale-color blue pheromone 0 20
+      ifelse show-pheromone? [
+        set pcolor scale-color blue pheromone 0 20
+      ] [
+        set pcolor green
+      ]
     ]
   ]
 end
 
 to go
   ask ants [
-    random-search
+    follow-pheromone   ;; bias heading toward strongest nearby pheromone
+    random-search      ;; add randomness and move forward
     check-food
     check-nest
     drop-pheromone
@@ -128,6 +150,18 @@ end]]></code>
     <button x="565" y="150" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
     <button x="565" y="200" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="55" display="Go">go</button>
     <slider x="105" step="0.01" y="115" max="1" width="250" display="evaporation-rate" height="50" min="0" direction="Horizontal" default="0.82" variable="evaporation-rate"></slider>
+    <slider x="105" step="1" y="175" max="200" width="250" display="number-of-ants" height="50" min="1" direction="Horizontal" default="100" variable="number-of-ants"></slider>
+    <switch x="105" y="240" width="200" display="show-pheromone?" height="33" on="true" variable="show-pheromone?"></switch>
+    <monitor x="10" y="290" width="175" height="45" precision="0" fontSize="11" display="Ants Carrying Food">count ants with [carrying-food?]</monitor>
+    <monitor x="200" y="290" width="175" height="45" precision="0" fontSize="11" display="Ticks">ticks</monitor>
+    <plot x="10" y="350" width="750" height="200" autoPlotX="true" autoPlotY="true" yMin="0" yMax="30" xMin="0" xMax="100" display="Ants Carrying Food Over Time" legend="false">
+      <setup></setup>
+      <update></update>
+      <pen color="-2674135" interval="1" mode="0" display="ants carrying food" legend="true">
+        <setup></setup>
+        <update>plot count ants with [carrying-food?]</update>
+      </pen>
+    </plot>
   </widgets>
   <info>## WHAT IS IT?
 
