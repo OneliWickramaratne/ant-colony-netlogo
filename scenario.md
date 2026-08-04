@@ -1,13 +1,7 @@
-# Scenario 1 — Low Number of Ants
-
-## Member
-- **Member:** Member 1
-- **Responsibility:** Setup and Agent Creation
-- **Model:** Ant Colony Food Search Simulation
-- **Platform:** NetLogo
+# Scenario  — Low Number of Ants
 
 ## Objective
-The objective of Scenario 1 is to observe the initial food-search behaviour of the colony when a low number of ants is used.
+The objective of Scenario  is to observe the initial food-search behaviour of the colony when a low number of ants is used.
 
 ## Simulation Settings
 - **Number of ants:** 30
