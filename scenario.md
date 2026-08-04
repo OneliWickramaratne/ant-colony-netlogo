@@ -1,4 +1,4 @@
-# Scenario  — Low Number of Ants
+# Scenario 1  — Low Number of Ants
 
 ## Objective
 The objective of Scenario  is to observe the initial food-search behaviour of the colony when a low number of ants is used.
@@ -7,7 +7,7 @@ The objective of Scenario  is to observe the initial food-search behaviour of th
 - **Number of ants:** 30
 - **Nest location:** Centre of the NetLogo world
 - **Food location:** Upper-right area of the NetLogo world
-- **Pheromone evaporation rate:** [Enter the value used]
+- **Pheromone evaporation rate:** [Enter the value used] 
 - **Other settings:** [Enter any additional settings]
 
 ## Procedure
