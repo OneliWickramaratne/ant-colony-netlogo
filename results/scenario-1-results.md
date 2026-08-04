@@ -1,12 +1,11 @@
 # Scenario 1 — Low Number of Ants
 
-## 1. Objective
+##  Objective
 
 The objective of Scenario 1 was to observe the food-search behaviour of the ant colony when a low number of ants was used. The scenario examined how the ants initially explored the environment, how quickly food collection began, and how pheromone trails developed while the ants travelled between the food source and the nest.
 
----
 
-## 2. Simulation Settings
+## Simulation Settings
 
 | Parameter | Value |
 |---|---:|
@@ -20,25 +19,8 @@ The objective of Scenario 1 was to observe the food-search behaviour of the ant 
 
 The simulation used 30 ants because Scenario 1 required a low number of agents. The evaporation rate was kept at 0.05, and the pheromone display was enabled so that the development of trails could be observed.
 
----
 
-## 3. Procedure
-
-1. The NetLogo model was opened from the project repository.
-2. The `number-of-ants` slider was set to `30`.
-3. The `evaporation-rate` slider was set to `0.05`.
-4. The `show-pheromone?` switch was turned on.
-5. The `setup` button was clicked to create the world, nest, food area and ants.
-6. A screenshot was taken at tick 0.
-7. The `Go` button was clicked to start the simulation.
-8. The ants were observed as they moved away from the nest and searched for food.
-9. A screenshot was taken at tick 47 when ants were carrying food and pheromone trails had started to appear.
-10. The simulation was continued until approximately tick 1000.
-11. The final monitor values and behaviour were recorded at tick 1005.
-
----
-
-## 4. Initial Conditions
+##  Initial Conditions
 
 At tick 0, all 30 ants were positioned at the centre of the nest. The open ground was displayed in green, the nest was displayed in brown, and the food source was displayed in yellow.
 
@@ -53,9 +35,9 @@ The initial monitor values were:
 
 The ants had not yet started moving, and no pheromone trail was present.
 
----
 
-## 5. Early Simulation Observation
+
+## Early Simulation Observation
 
 By tick 47, the ants had spread away from the nest and explored different parts of the environment.
 
@@ -72,9 +54,7 @@ At this stage, two ants were carrying food and two units of food had already bee
 
 The exact tick when the first ant reached the food source was not recorded separately. However, the results confirm that food discovery and collection occurred before tick 47.
 
----
-
-## 6. Final Results
+## Final Results
 
 The simulation was stopped at tick 1005.
 
@@ -93,7 +73,7 @@ The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was c
 
 ---
 
-## 7. Observations
+## Observations
 
 | Observation item | Result |
 |---|---|
@@ -106,9 +86,8 @@ The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was c
 | Final carrying state | No ants were carrying food at tick 1005. |
 | Overall result | The colony successfully found the food source and transported most of the food back to the nest. |
 
----
 
-## 8. Analysis
+## Analysis
 
 The low-ant scenario demonstrated that a colony of 30 ants was capable of locating the food source and transporting food back to the nest without central control.
 
@@ -124,27 +103,7 @@ The average trip time increased to 115 ticks by the end of the run. This may hav
 
 The final value of zero ants carrying food does not mean that the model failed. It only means that no ant was holding food at tick 1005. Earlier activity is confirmed by the graph, the 42 collected food units and the visible reduction in the food source.
 
----
 
-## 9. Emergent Behaviour
-
-The main emergent behaviour observed in Scenario 1 was the development of pheromone-based paths between the nest and the food area. No single ant controlled the colony or planned the complete route. Instead, each ant moved and reacted using local information.
-
-As multiple ants travelled through similar areas, their individual actions produced visible colony-level patterns. This was a positive emergent behaviour because it helped the colony discover the food source and collect 42 food units using only 30 ants.
-
----
-
-## 10. Evaluation of the Scenario
-
-One strength of the model is that it clearly demonstrates how simple ant behaviours can produce coordinated food-search activity. The model also provides visual evidence through the pheromone display, monitors and graph.
-
-One limitation is that the food patches are removed permanently when collected. Therefore, once most food has been collected, the number of ants carrying food decreases and eventually reaches zero.
-
-Another limitation is that the exact first-food tick was not recorded automatically. The early screenshot only confirms that food collection had already begun by tick 47.
-
-The scenario assumed that all ants had identical movement behaviour, speed and sensing ability. It also assumed that the world did not contain obstacles or environmental hazards.
-
----
 
 ## 11. Conclusion
 
