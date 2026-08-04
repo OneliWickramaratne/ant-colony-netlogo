@@ -1,11 +1,11 @@
 # Scenario 1 — Low Number of Ants
 
-##  Objective
+# Objective
 
 The objective of Scenario 1 was to observe the food-search behaviour of the ant colony when a low number of ants was used. The scenario examined how the ants initially explored the environment, how quickly food collection began, and how pheromone trails developed while the ants travelled between the food source and the nest.
 
 
-## Simulation Settings
+# Simulation Settings
 
 | Parameter | Value |
 |---|---:|
@@ -20,7 +20,7 @@ The objective of Scenario 1 was to observe the food-search behaviour of the ant 
 The simulation used 30 ants because Scenario 1 required a low number of agents. The evaporation rate was kept at 0.05, and the pheromone display was enabled so that the development of trails could be observed.
 
 
-##  Initial Conditions
+#  Initial Conditions
 
 At tick 0, all 30 ants were positioned at the centre of the nest. The open ground was displayed in green, the nest was displayed in brown, and the food source was displayed in yellow.
 
@@ -37,7 +37,7 @@ The ants had not yet started moving, and no pheromone trail was present.
 
 
 
-## Early Simulation Observation
+# Early Simulation Observation
 
 By tick 47, the ants had spread away from the nest and explored different parts of the environment.
 
@@ -54,7 +54,7 @@ At this stage, two ants were carrying food and two units of food had already bee
 
 The exact tick when the first ant reached the food source was not recorded separately. However, the results confirm that food discovery and collection occurred before tick 47.
 
-## Final Results
+# Final Results
 
 The simulation was stopped at tick 1005.
 
@@ -73,7 +73,7 @@ The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was c
 
 ---
 
-## Observations
+# Observations
 
 | Observation item | Result |
 |---|---|
@@ -87,25 +87,16 @@ The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was c
 | Overall result | The colony successfully found the food source and transported most of the food back to the nest. |
 
 
-## Analysis
+# Analysis
 
 The low-ant scenario demonstrated that a colony of 30 ants was capable of locating the food source and transporting food back to the nest without central control.
-
 At the beginning of the simulation, the ants moved randomly because they did not yet have a strong pheromone trail to follow. This random movement allowed the ants to explore different sections of the environment.
-
 Once some ants reached the food source, they began returning toward the nest while depositing pheromone. The blue paths visible at tick 47 show that environmental information was already being created through the ants' movements.
-
 Other ants could then respond to the pheromone in nearby patches. This produced a collective searching pattern even though each ant followed only simple local rules.
-
 The colony collected 42 units of food by tick 1005. This shows that the low number of ants was still sufficient to perform the food-search task successfully. However, the trails were not permanently stable because pheromone evaporated over time and the ants retained some random movement.
-
 The average trip time increased to 115 ticks by the end of the run. This may have occurred because some ants travelled through longer or less direct routes before returning to the nest.
-
 The final value of zero ants carrying food does not mean that the model failed. It only means that no ant was holding food at tick 1005. Earlier activity is confirmed by the graph, the 42 collected food units and the visible reduction in the food source.
 
 
 
-## 11. Conclusion
-
-Scenario 1 demonstrated that 30 autonomous ants could explore the NetLogo environment, discover the food source, develop pheromone paths and collect 42 food units by tick 1005. The scenario showed how simple individual actions can create organized colony-level behaviour without centralized control.
 
