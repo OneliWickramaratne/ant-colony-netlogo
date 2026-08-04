@@ -39,7 +39,4 @@ The objective of Scenario  is to observe the initial food-search behaviour of th
 With only 30 ants, food discovery is expected to be slower than in scenarios with more ants because fewer agents are exploring the environment at the same time. A stable pheromone trail may also take longer to develop because fewer ants are depositing and reinforcing pheromone. This statement should be checked against the actual simulation results before being included in the final report.
 
 ## Final Scenario 1 Summary
-[Write a short paragraph here after completing the simulation. Include the first-food tick, the observed movement pattern, and whether a stable trail formed.]
 
-## Member 1 Contribution
-Created the initial NetLogo world, nest area, food source area, ant breed, ant variables, setup procedure, and initial population of 30 ants. Conducted Scenario 1 testing and recorded observations and screenshots after the movement and pheromone components were integrated.
