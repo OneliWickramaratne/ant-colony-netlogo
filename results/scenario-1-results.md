@@ -89,14 +89,9 @@ The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was c
 
 # Analysis
 
-The low-ant scenario demonstrated that a colony of 30 ants was capable of locating the food source and transporting food back to the nest without central control.
-At the beginning of the simulation, the ants moved randomly because they did not yet have a strong pheromone trail to follow. This random movement allowed the ants to explore different sections of the environment.
-Once some ants reached the food source, they began returning toward the nest while depositing pheromone. The blue paths visible at tick 47 show that environmental information was already being created through the ants' movements.
-Other ants could then respond to the pheromone in nearby patches. This produced a collective searching pattern even though each ant followed only simple local rules.
-The colony collected 42 units of food by tick 1005. This shows that the low number of ants was still sufficient to perform the food-search task successfully. However, the trails were not permanently stable because pheromone evaporated over time and the ants retained some random movement.
-The average trip time increased to 115 ticks by the end of the run. This may have occurred because some ants travelled through longer or less direct routes before returning to the nest.
-The final value of zero ants carrying food does not mean that the model failed. It only means that no ant was holding food at tick 1005. Earlier activity is confirmed by the graph, the 42 collected food units and the visible reduction in the food source.
-
+The results show that 30 ants were able to find the food source and return food to the nest. At the beginning, the ants moved randomly because no strong pheromone trail existed.
+By tick 47, two food units had been collected and visible pheromone paths had started to form. The colony collected 42 food units by tick 1005, with an average trip time of 115 ticks.
+The value of zero ants carrying food at the final tick does not mean the simulation failed. It only means that no ant was carrying food at that exact moment. Overall, the scenario demonstrates how simple individual ant behaviours can produce coordinated colony-level food-search behaviour.
 
 
 
