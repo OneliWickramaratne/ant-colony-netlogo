@@ -71,7 +71,6 @@ By the end of the simulation, the colony had collected 42 units of food. The foo
 
 The `Ants Carrying Food` monitor showed 0 at the final tick because no ant was carrying food at that exact moment. The graph shows that ants carried food at several earlier points during the simulation.
 
----
 
 # Observations
 
