@@ -176,7 +176,7 @@ to go
   ]
   evaporate
   tick
-end</code>
+end]]></code>
   <widgets>
     <view x="790" wrappingAllowedX="true" y="5" frameRate="30.0" minPycor="-16" height="639" showTickCounter="true" patchSize="19.242424242424242" fontSize="10" wrappingAllowedY="true" width="639" tickCounterLabel="ticks" updateMode="0" maxPycor="16" maxPxcor="16" minPxcor="-16"></view>
     <button x="565" y="150" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
