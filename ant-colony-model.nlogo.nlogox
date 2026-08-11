@@ -2,14 +2,15 @@
 <model version="NetLogo 7.0.4" snapToGrid="true">
   <code><![CDATA[breed [ants ant]
 
+;; Global counters used by Member 5's data-collection code
 globals [
-  food-collected
-  trip-times
+  food-collected   ;; total food units delivered to the nest so far
+  trip-times       ;; list of completed round-trip durations, in ticks
 ]
 
 ants-own [
-  carrying-food?
-  trip-start-tick
+  carrying-food?    ;; true = returning to nest with food, false = searching
+  trip-start-tick   ;; tick the ant last left the nest, used to time each trip
 ]
 
 patches-own [
@@ -19,7 +20,7 @@ patches-own [
   obstacle?
 ]
 
-
+;; Initializes the whole model: world, ants, and Member 5's counters
 to setup
   clear-all
 
@@ -32,9 +33,8 @@ to setup
   reset-ticks
 end
 
-
+;; Colours the world and marks out the nest and food regions
 to setup-world
-
   ask patches [
     set pcolor green
     set nest? false
@@ -83,7 +83,6 @@ to setup-obstacles
 end
 
 to setup-ants
-
   create-ants number-of-ants [
     set color red
     set size 1.5
@@ -92,10 +91,11 @@ to setup-ants
     setxy 0 0
     set heading random 360
   ]
-
 end
 
 ;; Movement Logic
+;; Correlated random walk: small turn each tick, so movement looks natural
+;; rather than jittery. Also steers ants back toward the centre near edges.
 to random-search
   rt (random-float 30 - random-float 30)
 
@@ -112,12 +112,16 @@ to random-search
   fd 1
 end
 
+;; Trail-following decision rule: while searching, compares pheromone on the
+;; patch ahead, ahead-left, and ahead-right, then turns toward the strongest
+;; one. Random noise keeps the choice probabilistic rather than robotic.
 to follow-pheromone
   if not carrying-food? [
     let scent-ahead [pheromone] of patch-ahead 1
     let scent-left  [pheromone] of patch-left-and-ahead 45 1
     let scent-right [pheromone] of patch-right-and-ahead 45 1
 
+    ;; only react if there's a meaningful trail nearby
     if (scent-ahead + scent-left + scent-right) > 0.1 [
       ifelse scent-right > scent-ahead and scent-right > scent-left [
         rt 45 + (random-float 30 - 15)
@@ -132,12 +136,15 @@ to follow-pheromone
   ]
 end
 
+;; Records the tick an ant leaves the nest, so its trip length can be
+;; measured later when it returns (Member 5's trip-time tracking)
 to mark-departure
   if nest? and not carrying-food? [
     set trip-start-tick ticks
   ]
 end
 
+;; Picks up food if standing on a food patch and not already carrying any
 to check-food
   if food? and not carrying-food? [
     set carrying-food? true
@@ -148,6 +155,8 @@ to check-food
   ]
 end
 
+;; Delivers food if standing on the nest while carrying it, and logs the
+;; completed trip for Member 5's food-collected / trip-time monitors
 to check-nest
   if nest? and carrying-food? [
     set carrying-food? false
@@ -158,12 +167,16 @@ to check-nest
   ]
 end
 
+;; Deposits pheromone on the current patch while carrying food, marking
+;; the return path so other ants can follow it later
 to drop-pheromone
   if carrying-food? [
     set pheromone pheromone + 5
   ]
 end
 
+;; Decays pheromone on every patch each tick, and recolours patches to
+;; visualise trail strength (toggle with show-pheromone?)
 to evaporate
   ask patches [
     set pheromone pheromone * (1 - evaporation-rate)
@@ -177,12 +190,15 @@ to evaporate
   ]
 end
 
+;; Reports the average trip duration so far, or 0 if no trips completed yet
 to-report average-trip-time
   ifelse length trip-times > 0
     [ report mean trip-times ]
     [ report 0 ]
 end
 
+;; Main per-tick scheduler: each ant runs its full behaviour cycle,
+;; then the environment updates once
 to go
   ask ants [
     mark-departure
@@ -194,7 +210,7 @@ to go
   ]
   evaporate
   tick
-end]]></code>
+end</code>
   <widgets>
     <view x="790" wrappingAllowedX="true" y="5" frameRate="30.0" minPycor="-16" height="639" showTickCounter="true" patchSize="19.242424242424242" fontSize="10" wrappingAllowedY="true" width="639" tickCounterLabel="ticks" maxPycor="16" updateMode="0" maxPxcor="16" minPxcor="-16"></view>
     <button x="565" y="150" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
